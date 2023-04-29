@@ -1,5 +1,5 @@
 import { login } from "./auth.js";
-import { ref, push, get } from "firebase/database";
+import { ref, push, get, child, update } from "firebase/database";
 import { database, auth } from "../connect_db.js";
 
 const userRef = ref(database, "evento");
@@ -8,7 +8,7 @@ const email = "mauroriverasss@gmail.com";
 const password = "mauropascual";
 
 async function crear_evento(nombre, descripcion, fecha_hora, duracion, ubicacion, categoria, 
-    organizador, contacto, benificio, cupo_disponible, imagen, estado) {
+    organizador, contacto, benificio, cupo_disponible, imagen, estado, inscripcion=[]) {
     const currentUser = auth.currentUser;
     if (currentUser) {
         const userData = {
@@ -24,6 +24,7 @@ async function crear_evento(nombre, descripcion, fecha_hora, duracion, ubicacion
             cupo_disponible: cupo_disponible,
             imagen: imagen,
             estado: estado,
+            inscripcion: inscripcion,
             creador: currentUser.uid
         };
 
@@ -60,14 +61,54 @@ async function obtenerEventos() {
       throw new Error("No se encontraron eventos");
     }
   }
-  
 
-async function main() {
-    const evento = await obtenerEventos();
-    console.log(evento);
-  }
+
+async function inscribirse(eventoId) {
+  const currentUser = auth.currentUser;
+  if (currentUser) {
+    const eventoRef = ref(database, `evento/${eventoId}`);
+    const inscripcionesRef = child(eventoRef, 'inscripcion');
   
-  main();
+    const userData = {
+      id: currentUser.uid,
+      nombre: currentUser.displayName,
+      email: currentUser.email
+    };
+  
+    await update(inscripcionesRef, {
+      [currentUser.uid]: userData
+    });
+  
+    console.log(`El usuario ${currentUser.displayName} se ha inscrito al evento.`);
+  } else {
+    console.log("Debe iniciar sesión para inscribirse en un evento");
+  }
+}
+  
+async function probarInscripcion(eventoId) {
+  try {
+    const currentUser = await login("nuevo4@gmail.com", "mauropascual");
+    if (currentUser) {
+      await inscribirse(eventoId);
+      console.log(`El usuario ${currentUser.nombre} se ha inscrito al evento ${eventoId}.`);
+    } else {
+      console.log("Debe iniciar sesión para inscribirse en un evento");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+probarInscripcion("-NUDJ-xKA2_eLeREgiOP");
+
+
+// async function main() {
+//     const evento = await obtenerEventos();
+//     console.log(evento);
+//   }
+  
+//   main();
   
 
 
@@ -76,7 +117,7 @@ async function main() {
 //         const currentUser = await login(email, password);
 //         if (currentUser) {
 //             console.log(`Usuario autenticado: ${currentUser.email}`);
-//             const nuevoEventoRef = await crear_evento("Mauro", "descripcion", "Fecha hora", "duracion",
+//             const nuevoEventoRef = await crear_evento("Mauro1", "descripcion", "Fecha hora", "duracion",
 //              "ubicacion", "categoria", "organizador", "contacto", "costo", "cupo_disponible", "imagen", "estado");
 //             console.log(nuevoEventoRef);
 //         } else {
