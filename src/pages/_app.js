@@ -1,12 +1,18 @@
 import "@/styles/globals.css";
 import { theme } from "@/styles/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <>
+      <Head>
+        <title>Opera Active</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
   );
 }

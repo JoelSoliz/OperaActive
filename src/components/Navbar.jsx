@@ -42,31 +42,36 @@ const Navbar = () => {
         className="flex flex-row items-center justify-between px-8 py-4 bg-[rgba(255,255,255,0.1)] fixed top-0 w-full z-50"
         id="main-header"
       >
-        <Link
-          href="/"
-          className="font-['Dancing_Script',cursive] font-bold text-3xl text-[#ff001e] hover:scale-125"
-        >
-          OperaActive
+        <Link href="/">
+          <img
+            src="/assets/logo.png"
+            alt="Logo de la aplicación"
+            height={50}
+            width={100}
+            className="hover:scale-125"
+          />
         </Link>
         {isNonMobileDevice ? (
-          <div className="flex flex-row items-center gap-3 text-[#0e0e0e] font-bold text-base">
+          <div className="flex flex-row items-center gap-6 text-[#0e0e0e] font-bold font-serif">
             <Link
               href="#objetivos"
-              className="hover:text-[#4946f7] hover:scale-110"
+              className="hover:text-[#8777c2] hover:scale-110"
+              scroll={false}
             >
               Objetivos
             </Link>
             <Link
               href="#eventos"
-              className="hover:text-[#4946f7] hover:scale-110"
+              className="hover:text-[#8777c2] hover:scale-110"
+              scroll={false}
             >
               Eventos
             </Link>
             <Link
               href="/login"
-              className="hover:text-[#4946f7] hover:scale-110"
+              className="hover:text-[#8777c2] hover:scale-110"
             >
-              Iniciar Sesión
+              Iniciar sesión
             </Link>
           </div>
         ) : (
@@ -88,13 +93,14 @@ const Navbar = () => {
               onClose={handleClose}
               MenuListProps={{ "aria-labelledby": "basic.button" }}
               PaperProps={{
-                className: "bg-white text-[#0e0e0e] font-bold text-base",
+                className: "bg-white text-[#0e0e0e] font-bold font-serif",
               }}
             >
               <MenuItem onClick={handleClose}>
                 <Link
                   href="#objetivos"
-                  className="hover:text-[#4946f7] hover:scale-110"
+                  className="hover:text-[#8777c2] hover:scale-110"
+                  scroll={false}
                 >
                   Objetivos
                 </Link>
@@ -102,7 +108,8 @@ const Navbar = () => {
               <MenuItem onClick={handleClose}>
                 <Link
                   href="#eventos"
-                  className="hover:text-[#4946f7] hover:scale-110"
+                  className="hover:text-[#8777c2] hover:scale-110"
+                  scroll={false}
                 >
                   Eventos
                 </Link>
@@ -110,9 +117,9 @@ const Navbar = () => {
               <MenuItem onClick={handleClose}>
                 <Link
                   href="/login"
-                  className="hover:text-[#4946f7] hover:scale-110"
+                  className="hover:text-[#8777c2] hover:scale-110"
                 >
-                  Iniciar Sesión
+                  Iniciar sesión
                 </Link>
               </MenuItem>
             </Menu>
