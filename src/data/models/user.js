@@ -6,15 +6,15 @@ import { toast } from "sonner";
 const userRef = ref(database, "user");
 const auth = getAuth(app);
 
-async function registerUser(
+async function registerUser({
   name,
   email,
   birthday,
   password,
   abilities,
   residence,
-  availability
-) {
+  availability,
+}) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const userData = {

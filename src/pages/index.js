@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Events from "@/pageSections/home/Events";
 import Objectives from "@/pageSections/home/Objectives";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,6 +39,7 @@ export default function Home() {
         </div>
       </div>
       <Objectives />
+      <Events />
     </main>
   );
 }

@@ -45,14 +45,7 @@ const Navbar = () => {
         {isNonMobileDevice ? (
           <div className="flex flex-row items-center gap-6 text-[#0e0e0e] font-bold font-serif">
             <Link
-              href="#objetivos"
-              className="hover:text-[#8777c2] hover:scale-110"
-              scroll={false}
-            >
-              Objetivos
-            </Link>
-            <Link
-              href="#eventos"
+              href="/eventos"
               className="hover:text-[#8777c2] hover:scale-110"
               scroll={false}
             >
@@ -89,16 +82,7 @@ const Navbar = () => {
             >
               <MenuItem onClick={handleClose}>
                 <Link
-                  href="#objetivos"
-                  className="hover:text-[#8777c2] hover:scale-110"
-                  scroll={false}
-                >
-                  Objetivos
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link
-                  href="#eventos"
+                  href="/eventos"
                   className="hover:text-[#8777c2] hover:scale-110"
                   scroll={false}
                 >
