@@ -8,7 +8,7 @@ const EventCard = ({ value }) => {
       <img
         src={value?.image}
         alt={value?.name}
-        className="h-32 w-32 object-cover"
+        className="h-32 w-[220px] object-cover rounded-t-lg"
       />
       <div className="flex flex-col px-4 py-2 bg-slate-200 w-full rounded-b-xl">
         <span className="text-lg font-bold text-slate-900">{value?.name}</span>

@@ -2,36 +2,9 @@ import EventCard from "@/components/EventCard";
 import { useEffect } from "react";
 import useEvents from "@/hooks/useEvents";
 
-const events = [
-  {
-    id: "as1",
-    name: "Hola",
-    image: "/assets/logistic.png",
-    description: "Una descripción super larga",
-  },
-  {
-    id: "as2",
-    name: "Hola2",
-    image: "/assets/logistic.png",
-    description: "Una descripción super larga",
-  },
-  {
-    id: "as3",
-    name: "Hola3",
-    image: "/assets/logistic.png",
-    description: "Una descripción super larga",
-  },
-  {
-    id: "as4",
-    name: "Hola4",
-    image: "/assets/logistic.png",
-    description: "Una descripción super larga",
-  },
-];
-
 const Events = () => {
-  const { events: ee, loading, loadEvents } = useEvents((state) => state);
-  console.log(ee);
+  const { events, loading, loadEvents } = useEvents((state) => state);
+
   useEffect(() => {
     loadEvents();
   }, []);
@@ -41,8 +14,8 @@ const Events = () => {
       <h2 className="text-3xl font-serif font-bold">Eventos</h2>
       {loading && <span>Cargando eventos...</span>}
       <div className="flex flex-wrap gap-4 items-center justify-center">
-        {events.map((event) => (
-          <EventCard value={event} key={event.id} />
+        {events.map((event, i) => (
+          <EventCard value={event} key={i} />
         ))}
       </div>
     </div>
