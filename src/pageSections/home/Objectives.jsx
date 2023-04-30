@@ -36,8 +36,8 @@ const Objectives = () => {
       </div>
       <div className="flex flex-wrap mt-8 gap-20 justify-center font-serif font-bold text-lg text-blue-50">
         <Link
-          href="/register-collaborator"
-          className="flex flex-col items-center justify-center bg-[#ff7765] rounded-full py-8 px-10 hover:scale-110 hover:text-red-100"
+          href="/"
+          className="flex flex-col items-center justify-center bg-[#ffa093] rounded-full py-8 px-10 hover:scale-110 hover:text-red-100"
         >
           <img
             src="/assets/collaborator.png"
@@ -49,8 +49,8 @@ const Objectives = () => {
           </span>
         </Link>
         <Link
-          href="/register-company"
-          className="flex flex-col items-center justify-center bg-[#408071] rounded-full py-8 hover:scale-110 hover:text-green-100"
+          href="/"
+          className="flex flex-col items-center justify-center bg-[#62a897] rounded-full py-8 hover:scale-110 hover:text-green-100"
         >
           <img
             src="/assets/collaborators.png"
