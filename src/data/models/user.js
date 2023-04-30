@@ -1,66 +1,67 @@
 import { ref, push, get } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { database, app } from "../connect_db.js";
+import { toast } from "sonner";
 
 const userRef = ref(database, "user");
 const auth = getAuth(app);
 
+async function registerUser({
+  name,
+  email,
+  birthday,
+  password,
+  abilities,
+  residence,
+  availability,
+}) {
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const userData = {
+        name,
+        email,
+        birthday,
+        abilities,
+        availability,
+        residence,
+      };
 
-function crear_usuario(nombre, email, edad, contraseña, habilidad, ubicación, disponible, notificacion) {
-    return createUserWithEmailAndPassword(auth, email, contraseña)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            const userData = {
-                name: nombre,
-                email: email,
-                habilidad: habilidad,
-                hora_disponible: disponible,
-                notificacion: notificacion,
-                ubicación: ubicación,
-                age: edad
-            };
-
-            push(userRef, userData);
-            return userData;
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(`Error al crear usuario: ${errorMessage}`);
-            return null;
-        });
+      push(userRef, userData);
+      toast.success(`!Bienvenido ${name}!`);
+      return userData;
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      console.error(errorMessage);
+      toast.error(
+        `Hubo un problema al registrarte, por favor intenta de nuevo.`
+      );
+      return null;
+    });
 }
 
-async function obtenerUsuario(usuarioId) {
-    const usuarioRef = ref(database, `user/${usuarioId}`);
-    const snapshot = await get(usuarioRef);
+async function getUser(usuarioId) {
+  const userRef = ref(database, `user/${usuarioId}`);
+  const snapshot = await get(userRef);
 
-    if (snapshot.exists()) {
-        const usuarioData = snapshot.val();
-        return usuarioData;
-    } else {
-        throw new Error("No se encontró el usuario");
-    }
-}
-
-async function obtenerUsuarios() {
-    const usuariosRef = ref(database, "user");
-    const snapshot = await get(usuariosRef);
-  
-    if (snapshot.exists()) {
-      const usuariosData = snapshot.val();
-      return usuariosData;
-    } else {
-      throw new Error("No se encontraron usuarios");
-    }
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    return userData;
+  } else {
+    toast.error("No se encontró el usuario.");
   }
-  
+}
 
-// async function main() {
-//     const usuarios = await obtenerUsuarios();
-//     console.log(usuarios);
-//   }
-// main();
+async function getUsers() {
+  const usersRef = ref(database, "user");
+  const snapshot = await get(usersRef);
 
+  if (snapshot.exists()) {
+    const usersData = snapshot.val();
+    return usersData;
+  } else {
+    toast.message("No se encontraron usuarios");
+  }
+}
 
-crear_usuario("pascualmauro", "nuevo5@gmail.com", 22, "mauropascual", "nada", "casa", "false", "Email")
+export { getUser, getUsers, registerUser };
